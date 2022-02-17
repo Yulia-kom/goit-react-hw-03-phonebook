@@ -55,6 +55,23 @@ export default class App extends Component {
     );
   };
 
+  componentDidMount() { 
+
+    const contacts = localStorage.getItem("contacts");
+    const parsedContacts = JSON.parse(contacts);
+
+    // console.log(parsedContacts);
+    this.setState({ contacts: parsedContacts });
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevState);
+    if (this.state.contacts !== prevState.contacts) {
+      // console.log("Обновилось поле contacts, записываю contacts в хранилище");
+
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  };
 
   render() {
     const {filter} = this.state;
